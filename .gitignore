@@ -8,6 +8,7 @@ __pycache__/
 
 # ignore config files
 config.py
+db.config.py
 
 # Distribution / packaging
 .Python
