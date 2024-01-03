@@ -6,6 +6,7 @@
 ### Student: Sarah Hastings
 ### ID: G00235562
 
+***
 
 ### Getting started
 This repository contains the project for the Data Representation Module Winter 2023:24 https://github.com/Sarahlouhast/data-representation-project.
