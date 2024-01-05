@@ -1,4 +1,4 @@
- # Import the ProductDAO class from your module
+ # Import the ProductDAO class from module
 from ProductDAO import ProductDAO 
 
 def test_product_dao():
