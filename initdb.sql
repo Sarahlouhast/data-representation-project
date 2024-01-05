@@ -1,6 +1,6 @@
 -- Create a new database
-CREATE DATABASE IF NOT EXISTS test1;
-USE test1;
+CREATE DATABASE IF NOT EXISTS prod_data;
+USE prod_data;
 
 -- Create the 'productdata' table
 CREATE TABLE IF NOT EXISTS productdata (
