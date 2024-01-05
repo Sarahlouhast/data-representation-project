@@ -1,4 +1,5 @@
-from ProductDAO import ProductDAO  # Import the ProductDAO class from your module. Make sure the file name matches your actual file
+ # Import the ProductDAO class from your module
+from ProductDAO import ProductDAO 
 
 def test_product_dao():
     # Create an instance of ProductDAO
