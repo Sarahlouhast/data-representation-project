@@ -16,34 +16,34 @@ The project details can viewed here,  https://github.com/andrewbeattycourseware/
 ### Contents of the repository
 This repository contains the following files:
 
-* README.md file - Detailing the project and the files that form the project.
+1. README.md file - Detailing the project and the files that form the project.
 
-* .gitignore - GitHub gitignore file - includes reference to dbconfig.py and venv to ignore these files, both are stored locally for security purposes.
+2. .gitignore - GitHub gitignore file - includes reference to dbconfig.py and venv to ignore these files, both are stored locally for security purposes.
 
-* dbconfig_template.py - Template configuration file contains MySQL database details, the purpose of the configuration file is to create the initial settings for the project. A newuser will need to amend the template file to include their own local settings (e.g., user name and password) before proceeding. dbconfig.py is stored locally for security purposes.
+3. dbconfig_template.py - Template configuration file contains MySQL database details, the purpose of the configuration file is to create the initial settings for the project. A newuser will need to amend the template file to include their own local settings (e.g., user name and password) before proceeding. dbconfig.py is stored locally for security purposes.
 
-* requirements.txt - This file is a list of the specific python packages and versions detail required to run the app. The user can install the required packages using the requirements.txt:
+4. requirements.txt - This file is a list of the specific python packages and versions detail required to run the app. The user can install the required packages using the requirements.txt:
 
--- Open a terminal or command prompt
--- Navigate to the folder with requirements.txt
--- run: pip install -r requirements.txt
--- Installation of dependencies is complete.
+* Open a terminal or command prompt
+* Navigate to the folder with requirements.txt
+* run: pip install -r requirements.txt
+* Installation of dependencies is complete.
 
-* initdb.sql - This is the initialisation file. Using MySQL this file will create the database, its associated table and populate the initial database content. In MySQL you can use SOURCE along with the location of the file path for this file to action it.
+5. initdb.sql - This is the initialisation file. Using MySQL this file will create the database, its associated table and populate the initial database content. In MySQL you can use SOURCE along with the location of the file path for this file to action it.
 
-* ProductDAO.py - This program consumes an API, it defines the standard CRUD operations to be performed. It acts as a Database Access Object (DAO) for the products, an instance of this can be called with an associated python server to undertake CRUD operations on the database. 
+6. ProductDAO.py - This program consumes an API, it defines the standard CRUD operations to be performed. It acts as a Database Access Object (DAO) for the products, an instance of this can be called with an associated python server to undertake CRUD operations on the database. 
 
-* ProductDAOTest.py- I have included this file to show the process and to test the functionality of the ProductDAO file to ensure functions are working as expected.
+7. ProductDAOTest.py- I have included this file to show the process and to test the functionality of the ProductDAO file to ensure functions are working as expected.
 
-* server.py - Flask server application, this file uses Python flask for dealing with requests and responses for database CRUD operations. 
+8. server.py - Flask server application, this file uses Python flask for dealing with requests and responses for database CRUD operations. 
 
-* static_pages - This folder contains html page and favicon image
+9. static_pages - This folder contains html page and favicon image
 
-* it.ico - a favicon that provides an IT themed image displayed in the browser address bar of index.html and this file is saved in the staticpages folder.
+10. it.ico - a favicon that provides an IT themed image displayed in the browser address bar of index.html and this file is saved in the staticpages folder.
 
-* img - folder containing png files showing content from index.html page, products page, findById page, also png files showing database content and structure 
+11. img - folder containing png files showing content from index.html page, products page, findById page, also png files showing database content and structure 
 
-* index.html - This is the accompanying web interface html page, AJAX calls perform the CRUD operations and this file is saved in the staticpages folder. This was designed in HTML for use on the Google Chrome browser. The interface page uses the latest Bootstrap CSS sheet styles from https://getbootstrap.com/ and AJAX/jQuery library from https://developers.google.com/speed/libraries. This interface can be used to view and undertake CRUD operations on the database content. Once the app server is running, the interface page can be accessed from a web browser via the root url address using a localhost 'http://127.0.0.1:5000/index.html'.
+12. index.html - This is the accompanying web interface html page, AJAX calls perform the CRUD operations and this file is saved in the staticpages folder. This was designed in HTML for use on the Google Chrome browser. The interface page uses the latest Bootstrap CSS sheet styles from https://getbootstrap.com/ and AJAX/jQuery library from https://developers.google.com/speed/libraries. This interface can be used to view and undertake CRUD operations on the database content. Once the app server is running, the interface page can be accessed from a web browser via the root url address using a localhost 'http://127.0.0.1:5000/index.html'.
 
 ### Database Description
 The database used for this project is called 'prod_data'. It is used to store product information, the user is able to create, update, delete and make any changes to any of the products. It contains a table called 'productdata' which has the following data fields:
