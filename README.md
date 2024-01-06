@@ -9,123 +9,90 @@
 ### Getting started
 This repository contains the project for the Data Representation Module Winter 2023:24 https://github.com/Sarahlouhast/data-representation-project.
 
-#### The project objective 
-Build a basic Flask server that has a REST API to perform CRUD operations include one database table and a web interface, using AJAX calls, to perform these CRUD operations.
+The project objective: Build a basic Flask server that has a REST API to perform CRUD operations include one database table and a web interface, using AJAX calls, to perform these CRUD operations.
 
-The project details can viewed here https://github.com/andrewbeattycourseware/datarepresentation/blob/main/project/Project%20Description.pdf.
+The project details can viewed here,  https://github.com/andrewbeattycourseware/datarepresentation/blob/main/project/Project%20Description.pdf.
 
+### Contents of the repository
+This repository contains the following files:
 
-### Contents on repository
-The repository contains the following files:
+* README.md file - Detailing the project and the files that form the project.
 
-* README.md file - detailing the project and the files that form the project.
+* .gitignore - GitHub gitignore file - includes reference to dbconfig.py and venv to ignore these files, both are stored locally for security purposes.
 
-* .gitignore - GitHub gitignore file - includes reference to dbconfig.py and venv, so that when it is downloaded, the repository won't damage that person's own configuration.
+* dbconfig_template.py - Template configuration file contains MySQL database details, the purpose of the configuration file is to create the initial settings for the project. A newuser will need to amend the template file to include their own local settings (e.g., user name and password) before proceeding. dbconfig.py is stored locally for security purposes.
 
-* dbconfig_template.py - template configuration file contains MySQL database details, the purpose of the configuration file is to create the initial settings for the project. A newuser will need to amend the template file to include their own local settings (e.g., user name and password) before proceeding. dbconfig.py is stored locally for security purposes.
+* requirements.txt - This file is a list of the specific python packages and versions detail required to run the app. The user can install the required packages using the requirements.txt:
 
-* requirements.txt - This file is a list of the specific python packages and versions detail required to run the app. The user can install the required packages using requirements.txt:
-Open a terminal or command prompt
-Navigate to the folder with requirements.txt
-run: pip install -r requirements.txt
-Installation of dependencies is complete.
+-- Open a terminal or command prompt
+-- Navigate to the folder with requirements.txt
+-- run: pip install -r requirements.txt
+-- Installation of dependencies is complete.
 
-* initdb.sql - This is the initialisation file. Using MySQL this file will create the database, its associated table and populate the initial database content. In mysql you can use SOURCE along with the location of the file path for this file to action it.
+* initdb.sql - This is the initialisation file. Using MySQL this file will create the database, its associated table and populate the initial database content. In MySQL you can use SOURCE along with the location of the file path for this file to action it.
 
-* ProductDAO.py - This program consumes an API, it defines the standard CRUD operations to be performed.
+* ProductDAO.py - This program consumes an API, it defines the standard CRUD operations to be performed. It acts as a Database Access Object (DAO) for the products, an instance of this can be called with an associated python server to undertake CRUD operations on the database. 
 
 * ProductDAOTest.py- I have included this file to show the process and to test the functionality of the ProductDAO file to ensure functions are working as expected.
 
-* server.py - Flask server application
+* server.py - Flask server application, this file uses Python flask for dealing with requests and responses for database CRUD operations. 
 
-* static_pages - folder contains html page and favicon image
+* static_pages - This folder contains html page and favicon image
 
-* it.ico - a favicon that provides a IT themed image displayed in the browser address bar of index.html and this file is saved in the staticpages folder.
+* it.ico - a favicon that provides an IT themed image displayed in the browser address bar of index.html and this file is saved in the staticpages folder.
 
-* img - folder containing png files showing content from index.html page, products page, findById page, also png showing database content and structure 
+* img - folder containing png files showing content from index.html page, products page, findById page, also png files showing database content and structure 
 
-* index.html - This is the accompanying web interface, AJAX calls perform the CRUD operations and this file is saved in the staticpages folder.
+* index.html - This is the accompanying web interface html page, AJAX calls perform the CRUD operations and this file is saved in the staticpages folder. This was designed in HTML for use on the Google Chrome browser. The interface page uses the latest Bootstrap CSS sheet styles from https://getbootstrap.com/ and AJAX/jQuery library from https://developers.google.com/speed/libraries. This interface can be used to view and undertake CRUD operations on the database content. Once the app server is running, the interface page can be accessed from a web browser via the root url address using a localhost 'http://127.0.0.1:5000/index.html'.
 
-#### Database Description
-A database called 'prod_data' is used to store product information, the user is able to create, update, delete and make any changes to any of the products. It contains a table called 'productdata' which has the following data fields:
+### Database Description
+The database used for this project is called 'prod_data'. It is used to store product information, the user is able to create, update, delete and make any changes to any of the products. It contains a table called 'productdata' which has the following data fields:
 
-ID (PRIMARY KEY, AUTO-INCREMENT)
-Product
-Manufacturer        
-Model            
-Price
+* ID (PRIMARY KEY, AUTO-INCREMENT)
+* Product
+* Manufacturer        
+* Model            
+* Price
 
-
-### Instructions for downloading this repository
+### Download the repository
 Log on to GitHub and search for user Sarahlouhast, the repository is entitled data-representation-project, https://github.com/Sarahlouhast/data-representation-project. You can chose click on the code button and chose to clone the repository or download as a zip file onto your machine. For further information on how github works video guides are available here https://www.youtube.com/githubguides.
 
-
-#### How to run the files and view the functionality of this project
+### Run & view the functionality of this project
 Create and activate blank virtual environment with a directory named venv. Anaconda was used to create a localhost virtual environment (venv) for running the server. It can be installed using the Anaconda python distribution, https://www.anaconda.com/. The following Windows command line python commands can used be to create the venv, install and save the necessary packages for the venv, set the flask_app server and server mode, run the server, stop the server and finally deactivate the venv.
 
-Make a virtual environment  	python -m venv venv
-Make a virtual environment with system packages 	python -m venv venv --system-site-packages
-Run a virtual environment	 .\venv\Scripts\activate.bat
-See the packages	pip freeze
-Save them to a file 	pip freeze > requirements.txt
-Load a file of packages 	pip install -r requirements.txt
-exit	deactivate
+* Make a virtual environment  	python -m venv venv
+* Make a virtual environment with system packages 	python -m venv venv --system-site-packages
+* Run a virtual environment	 .\venv\Scripts\activate.bat
+* See the packages	pip freeze
+* Save them to a file 	pip freeze > requirements.txt
+* Load a file of packages 	pip install -r requirements.txt
+* exit	deactivate
 
 For this projoect I used the below to install the necessary packages and added to my requirements.txt.
 
-(venv)λ pip install Flask
-(venv)λ pip install mysql-connector-python
-(venv)λ pip freeze > requirements.txt
+* (venv)λ pip install Flask
+* (venv)λ pip install mysql-connector-python
+* (venv)λ pip freeze > requirements.txt
 
-The package requirements can also be installed from the list in the file 'requirement.txt' using the venv command
+The package requirements can also be installed from the list in the file 'requirements.txt' using the venv command
 
-(venv)λ pip install -r requirements.txt
+* (venv)λ pip install -r requirements.txt
 
 After download and installation of requirments.txt, open the dbconfig_template.py and edit with your specific details for machine and user. 
 
-Next you can run the initdb.sql on MySQL to create a copy of databse.
-open server.py on the command line
-Confirmation that this file has linked to the Data Access Object (DAO) is printed to the screen
-Connection @ init made with ProductDAO.py
+Next you can run the initdb.sql on MySQL to create a copy of database.
+
+After these steps are completed the user can open server.py on the command line. 
+Confirmation that this file has linked to the Data Access Object (DAO) is printed to the screen.
+Connection @ init made with ProductDAO.py.
 The Flask app is being served!
 
-Copy and paste local host URL that appears on the screen into a browser.
-http://127.0.0.1:5000 will bring you to a Welcome page displaying "Welcome to the Product API Page".
+Next copy and paste the local host URL that appears on the screen into a browser, http://127.0.0.1:5000 will bring you to a Welcome page displaying "Welcome to the Product API Page".
 Database contents can be viewed in json format at http://127.0.0.1:5000/products.
-Navigate to http://127.0.0.1:5000/index.html which is the landing page index.html to display all available products and perform CRUD operations. Options are Add New products, Update or Delete current products. 
+Navigate to http://127.0.0.1:5000/index.html which is the landing page /index.html to display all available products and perform CRUD operations. Options are Add New products, Update or Delete current products. 
 The buttons are colour coded, a bootstrap convention to convey meaning.
 When creating a new product, the program will only accept numerical values in the price field.
 Select "Go Back" if there is no requirement to create a new item.
-
-
-
-
-
-
-
-The dbconfig.py file contains specific details for each machine and user. A template version of this file 'dbconfigtemplate.py' is included in this repository. This template has to edited to match the specific requirements for each machine the database is running on. My file is saved locally as 'dbconfig.py' for the DAO to read it, the gitignore file ignores this file to ensure it is not uploaded for security purposes. A connection pool is used to make database connections.
-
-MySQL is used to implemented the database. The user can create the database, its associated table and populate the initial database content by using the 'initdb.sql', all this data is stored in this initialisation file.
-
-ProductDAO.py is a Database Access Object (DAO) for the products, an instance of this can be called with an associated python server to undertake CRUD operations on the database. 
-
-Flask Server 
-A server app called 'server.py', uses Python flask for dealing with requests and responses for database CRUD operations. The server file can be run locally from the command line by typing the command 'python server.py' or via a local or remote virtual environment.
-
-Run Flask server (On Windows):
-SET FLASK_APP=server
-SET FLASK_ENV=development
-flask run
-Open http://127.0.0.1:5000/ 
-
-A database graphical user interface page 'index.html' is included the 'staticpages' folder of this repository. This was designed in HTML for use on the Google Chrome browser. The interface page uses the latest Bootstrap CSS sheet styles from https://getbootstrap.com/ and AJAX/jQuery library from https://developers.google.com/speed/libraries. This interface can be used to view and undertake CRUD operations on the database content. Once the app server is running, the interface page can be accessed from a web browser via the root url address using a localhost 'http://127.0.0.1:5000/index.html'.
-
-
-
-
-_________________
-
-
 
 ### References
 All references used in this project are listed below.
