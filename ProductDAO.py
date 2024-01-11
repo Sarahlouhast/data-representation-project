@@ -54,8 +54,10 @@ class ProductDAO:
     # Method to insert a new record into the productdata table
     def create(self, values):
         cursor = self.getcursor()
-        sql = "insert into productdata (Product, Manufacturer, Model, Price) values (%s,%s,%s,%s)"
-        cursor.execute(sql, values)
+        # SQL query to insert a new record into the productdata table
+        sql = "INSERT INTO productdata (Product, Manufacturer, Model, Price) VALUES (%s, %s, %s, %s)"
+        # Execute the SQL query with values provided 
+        cursor.execute(sql, (values['Product'], values['Manufacturer'], values['Model'], values['Price']))
         # Commit changes
         self.connection.commit()
         new_id = cursor.lastrowid
@@ -81,7 +83,6 @@ class ProductDAO:
         cursor = self.getcursor()
         sql = "select * from productdata where ID = %s"
         values = (id,)
-
         cursor.execute(sql, values)
         result = cursor.fetchone()
         returnvalue = self.convertToDictionary(result)
@@ -91,8 +92,10 @@ class ProductDAO:
     # Method to update a record in the productdata table
     def update(self, values):
         cursor = self.getcursor()
-        sql = "update productdata set Product=%s, Manufacturer=%s, Model=%s, Price=%s  where ID = %s"
-        cursor.execute(sql, values)
+        # SQL query to insert a new record into the productdata table
+        sql = "UPDATE productdata SET Product=%s, Manufacturer=%s, Model=%s, Price=%s WHERE ID = %s"
+        # Execute the SQL query with values provided 
+        cursor.execute(sql, (values['Product'], values['Manufacturer'], values['Model'], values['Price'], values['ID']))  
         # Commit changes
         self.connection.commit()
         self.closeAll()

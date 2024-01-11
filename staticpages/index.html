@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Include page title, AJAX, Bootstrap CSS & favicon image -->
+    <title>Product Information System</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="shortcut icon" href="it.ico">
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        div {
+            text-align: center;
+        }
+
+        table {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body style="background-color:rgb(250,250,210)">
+    <h1>Product Information System</h1>
+    <!-- Create/Update Product Form -->
+    <div id="create-update" style="display:none">
+        <h2>Create or Update Product</h2>
+        <table id="createUpdateForm">
+             <!-- Form fields for ID, Product, Manufacturer, Model, Price -->
+            <tr>
+                <td>ID</td>
+                <td><input type="text" name="id" id="idInput" disabled></td>
+            </tr>
+            <tr>
+                <td>Product</td>
+                <td><input type="text" name="Product"></td>
+            </tr>
+            <tr>
+                <td>Manufacturer</td>
+                <td><input type="text" name="Manufacturer"></td>
+            </tr>
+            <tr>
+                <td>Model</td>
+                <td><input type="text" name="Model"></td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td><input type="number" name="Price"></td>
+            </tr>
+             <!-- Buttons for Create, Update, and Go Back actions -->
+            <tr>
+                <td>
+                    <button id="create-button" onclick="doCreate()" type="button"
+                        class="btn btn-success">Add New Product</button>
+                    <button id="update-button" onclick="doUpdate()" type="button"
+                        class="btn btn-secondary">Update</button>
+                    <button id="refresh-button" onclick="history.go(0)" type="button"
+                        class="btn btn-danger">Go Back</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+     <!-- Display Product Database -->
+    <div id="display">
+        <h2>Product Database</h2>
+        <!-- Button to show Create form -->
+        <button onClick="showCreate()" type="button" class="btn btn-success">Add New Product</button>
+        <!-- Table to display products -->
+        <table id="productTable" class="table">
+            <tr>
+                <!-- Table headers -->
+                <th>ID</th>
+                <th>Product</th>
+                <th>Manufacturer</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </table>
+    </div>
+    <!-- JavaScript Section -->
+    <script>
+        // Function to add a product to the table
+        function addProductToTable(item) {
+            // Retrieve table and create a new row
+            tableElem = document.getElementById("productTable");
+            rowElem = tableElem.insertRow(-1);
+            rowElem.setAttribute("id", item.ID);
+            // Insert cells with product information
+            cell1 = rowElem.insertCell(0);
+            cell1.innerHTML = item.ID;
+            cell2 = rowElem.insertCell(1);
+            cell2.innerHTML = item.Product;
+            cell3 = rowElem.insertCell(2);
+            cell3.innerHTML = item.Manufacturer;
+            cell4 = rowElem.insertCell(3);
+            cell4.innerHTML = item.Model;
+            cell5 = rowElem.insertCell(4);
+            cell5.innerHTML = item.Price;
+            cell6 = rowElem.insertCell(5);
+            cell6.innerHTML = '<button onclick="showUpdate(this)" type="button" class="btn btn-secondary">Update</button>';
+            cell7 = rowElem.insertCell(6);
+            cell7.innerHTML = '<button onclick="doDelete(this)" type="button" class="btn btn-danger">DELETE</button>';
+        }
+        // Function to populate the product table
+        function populateProductTable() {
+            $.ajax({
+                // API endpoint
+                url: 'http://127.0.0.1:5000/products',
+                method: 'GET',
+                datatype: 'JSON',
+                success: function (results) {
+                     // Iterate through results and add each product to the table
+                    for (item of results) {
+                        addProductToTable(item);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("error " + error + " code:" + status);
+                }
+            });
+        }
+        // Call the function to populate the product table
+        populateProductTable();
+        // Function to create a new product
+        function doCreate() {
+            var form = document.getElementById('createUpdateForm');
+            var newProduct = {
+                Product: form.querySelector('input[name="Product"]').value,
+                Manufacturer: form.querySelector('input[name="Manufacturer"]').value,
+                Model: form.querySelector('input[name="Model"]').value,
+                Price: form.querySelector('input[name="Price"]').value
+            };
+
+            $.ajax({
+                // API endpoint
+                url: 'http://127.0.0.1:5000/products',
+                method: 'POST',
+                data: JSON.stringify(newProduct),
+                contentType: 'application/json',
+                success: function (result) {
+                     // Add the newly created product to the table and clear the form
+                    addProductToTable(result);
+                    clearForm();
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error + " | Code: " + status);
+                }
+            });
+        }
+        // Function to update an existing product
+        function doUpdate() {
+            var form = document.getElementById('createUpdateForm');
+            var updatedProduct = {
+                ID: form.querySelector('input[name="id"]').value,
+                Product: form.querySelector('input[name="Product"]').value,
+                Manufacturer: form.querySelector('input[name="Manufacturer"]').value,
+                Model: form.querySelector('input[name="Model"]').value,
+                Price: form.querySelector('input[name="Price"]').value
+            };
+
+            $.ajax({
+                // API endpoint
+                url: 'http://127.0.0.1:5000/products/' + updatedProduct.ID,
+                method: 'PUT',
+                data: JSON.stringify(updatedProduct),
+                contentType: 'application/json',
+                success: function () {
+                    // Update the table with the modified product and clear the form
+                    var row = document.getElementById(updatedProduct.ID);
+                    row.cells[1].innerHTML = updatedProduct.Product;
+                    row.cells[2].innerHTML = updatedProduct.Manufacturer;
+                    row.cells[3].innerHTML = updatedProduct.Model;
+                    row.cells[4].innerHTML = updatedProduct.Price;
+
+                    clearForm();
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error + " | Code: " + status);
+                }
+            });
+        }
+        // Function to delete a product
+        function doDelete(thisElem) {
+            var rowElement = thisElem.parentNode.parentNode;
+            var productId = rowElement.getAttribute("id");
+
+            $.ajax({
+                // API endpoint
+                url: 'http://127.0.0.1:5000/products/' + productId,
+                method: 'DELETE',
+                success: function () {
+                     // Remove the deleted product from the table
+                    rowElement.remove();
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error + " | Code: " + status);
+                }
+            });
+        }
+        // Function to show the create form
+        function showCreate() {
+            document.getElementById('display').style.display = "none";
+            document.getElementById('update-button').style.display = "none";
+            document.getElementById('create-button').style.display = "block";
+            document.getElementById('create-update').style.display = "block";
+        }
+        // Function to show the update form
+        function showUpdate(thisElem) {
+            var rowElement = thisElem.parentNode.parentNode;
+            item = readItemFromRow(rowElement);
+            populateForm(item);
+
+            document.getElementById('display').style.display = "none";
+            document.getElementById('update-button').style.display = "block";
+            document.getElementById('create-button').style.display = "none";
+            document.getElementById('create-update').style.display = "block";
+        }
+        // Function to read product information from a table row
+        function readItemFromRow(rowElement) {
+            item = {};
+            item.ID = rowElement.getAttribute("id");
+            item.Product = rowElement.cells[1].firstChild.textContent;
+            item.Manufacturer = rowElement.cells[2].firstChild.textContent;
+            item.Model = rowElement.cells[3].firstChild.textContent;
+            item.Price = rowElement.cells[4].firstChild.textContent;
+
+            return item;
+        }
+        // Function to populate the form with product information
+        function populateForm(item) {
+            var form = document.getElementById('createUpdateForm');
+
+            form.querySelector('input[name="id"]').value = item.ID;
+            form.querySelector('input[name="Product"]').value = item.Product;
+            form.querySelector('input[name="Manufacturer"]').value = item.Manufacturer;
+            form.querySelector('input[name="Model"]').value = item.Model;
+            form.querySelector('input[name="Price"]').value = item.Price;
+        }
+        // Function to clear the form
+        function clearForm() {
+            var form = document.getElementById('createUpdateForm');
+
+            form.querySelector('input[name="id"]').value = '';
+            form.querySelector('input[name="Product"]').value = '';
+            form.querySelector('input[name="Manufacturer"]').value = '';
+            form.querySelector('input[name="Model"]').value = '';
+            form.querySelector('input[name="Price"]').value = '';
+        }
+    </script>
+</body>
+
+</html>
